@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Builder
-public class AtletaCreateDto {
+public class AtletaCadastrarDto {
     private String nome;
     private Long idade;
     @Size(max = 11, message = "O tamanho máximo para cpf é de 11 digitos.")

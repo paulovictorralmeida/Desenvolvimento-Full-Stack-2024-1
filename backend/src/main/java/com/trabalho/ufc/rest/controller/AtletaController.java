@@ -3,7 +3,8 @@ package com.trabalho.ufc.rest.controller;
 import com.trabalho.ufc.domain.entity.Atleta;
 import com.trabalho.ufc.domain.service.AtletaService;
 import com.trabalho.ufc.domain.service.ModelMapperService;
-import com.trabalho.ufc.rest.controller.dto.atleta.AtletaCreateDto;
+import com.trabalho.ufc.rest.controller.dto.atleta.AtletaCadastrarDto;
+import com.trabalho.ufc.rest.controller.dto.atleta.AtletaListarDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/atleta")
+@RequestMapping("/atletas")
 public class AtletaController {
 
     private final AtletaService atletaService;
@@ -27,7 +29,7 @@ public class AtletaController {
 
 
     @PostMapping
-    public ResponseEntity<Atleta> cadastrar(@RequestBody @Valid AtletaCreateDto dto){
+    public ResponseEntity<Atleta> cadastrar(@RequestBody @Valid AtletaCadastrarDto dto){
         Atleta atleta = modelMapperService.toObject(Atleta.class, dto);
         atleta.setId(0L);
 
@@ -39,8 +41,14 @@ public class AtletaController {
         return ResponseEntity.created(location).body(savedAtleta);
     }
 
+    @GetMapping
+    public ResponseEntity<Map> listar(@RequestParam(required = false, defaultValue = "0") int page,
+                                      @RequestParam(required = false, defaultValue = "10") int itemsPerPage){
+        return ResponseEntity.ok(modelMapperService.toPage(AtletaListarDto.class, atletaService.listar(page, itemsPerPage)));
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Void> editar(@RequestBody @Valid AtletaCreateDto dto, @PathVariable Long id){
+    public ResponseEntity<Void> editar(@RequestBody @Valid AtletaCadastrarDto dto, @PathVariable Long id){
         Atleta atleta = modelMapperService.toObject(Atleta.class, dto);
         atleta.setId(id);
         atletaService.editar(atleta);

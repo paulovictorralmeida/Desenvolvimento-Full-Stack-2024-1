@@ -5,6 +5,9 @@ import com.trabalho.ufc.domain.repository.AtletaRepository;
 import com.trabalho.ufc.infrastructure.exception.UfcException;
 import com.trabalho.ufc.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -54,5 +57,9 @@ public class AtletaService {
     public void deletar(Long id) {
         this.pegarPorId(id);
         atletaRepository.deleteById(id);
+    }
+
+    public Page<Atleta> listar(int page, int itemsPerPage) {
+        return atletaRepository.findAll(PageRequest.of(page, itemsPerPage, Sort.by(Sort.Direction.DESC, "nome")));
     }
 }

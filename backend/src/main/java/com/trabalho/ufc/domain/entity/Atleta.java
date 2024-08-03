@@ -1,15 +1,16 @@
 package com.trabalho.ufc.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @Table(name = "tb_atleta")
 public class Atleta extends Pessoa {
 
@@ -20,8 +21,19 @@ public class Atleta extends Pessoa {
     @JoinColumn
     private Faixa faixa;
 
+    @ManyToMany(mappedBy = "atletas")
+    private List<Luta> lutas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vencedor")
+    private List<Luta> vitorias = new ArrayList<>();
+
     public Atleta(){
         super();
+    }
+
+    @Builder(toBuilder = true)
+    public Atleta(Long id){
+        super(id);
     }
 
     @Builder

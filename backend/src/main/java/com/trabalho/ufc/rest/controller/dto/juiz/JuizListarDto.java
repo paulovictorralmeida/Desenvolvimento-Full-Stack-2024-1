@@ -1,19 +1,18 @@
-package com.trabalho.ufc.rest.controller.dto.atleta;
+package com.trabalho.ufc.rest.controller.dto.juiz;
 
-import com.trabalho.ufc.domain.entity.Faixa;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AtletaListarDto {
+public class JuizListarDto {
     private Long id;
     private String nome;
     private Long idade;
     private String cpf;
     private String rg;
-    private Double peso;
-    private Faixa faixa;
 }

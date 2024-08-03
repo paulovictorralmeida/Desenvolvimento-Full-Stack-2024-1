@@ -1,6 +1,7 @@
 package com.trabalho.ufc.rest.controller;
 
 import com.trabalho.ufc.domain.entity.Atleta;
+import com.trabalho.ufc.domain.entity.Faixa;
 import com.trabalho.ufc.domain.service.AtletaService;
 import com.trabalho.ufc.domain.service.ModelMapperService;
 import com.trabalho.ufc.rest.controller.dto.atleta.AtletaCadastrarDto;

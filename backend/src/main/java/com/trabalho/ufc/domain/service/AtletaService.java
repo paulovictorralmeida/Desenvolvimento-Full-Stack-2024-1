@@ -16,11 +16,14 @@ import java.util.Optional;
 public class AtletaService {
 
     private final AtletaRepository atletaRepository;
+    private final FaixaService faixaService;
 
     @Autowired
-    public AtletaService(AtletaRepository atletaRepository){
+    public AtletaService(AtletaRepository atletaRepository, FaixaService faixaService){
         this.atletaRepository = atletaRepository;
+        this.faixaService = faixaService;
     }
+
     public Atleta cadastrar(Atleta atleta) {
         atleta.setId(0L);
         if(StringUtil.isNullOrEmpty(atleta.getNome()) ||
@@ -38,6 +41,8 @@ public class AtletaService {
         if(atleta.getRg().length() > 7){
             throw UfcException.badRequest("003", "O tamanho máximo para rg é de 7 digitos.");
         }
+
+        atleta.setFaixa(faixaService.buscarFaixaPorPeso(atleta.getPeso()));
         return atletaRepository.save(atleta);
     }
 

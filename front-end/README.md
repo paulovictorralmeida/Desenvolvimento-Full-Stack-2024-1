@@ -1,4 +1,4 @@
-# lista-jogos-zerados
+# desevolvimento-fullstack-clube-da-luta
 
 ## Project setup
 ```

@@ -7,6 +7,7 @@
 import { useCounterStore } from '../stores/index'
 import { defineComponent } from 'vue';
 
+
 export default defineComponent({
   name: 'App',
   components: {

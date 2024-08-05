@@ -1,0 +1,3 @@
+<template>
+  cadastrooooooooooo atletas
+</template>

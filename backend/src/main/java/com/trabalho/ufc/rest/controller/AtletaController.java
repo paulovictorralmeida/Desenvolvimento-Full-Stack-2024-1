@@ -61,4 +61,9 @@ public class AtletaController {
         atletaService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AtletaListarDto> buscarPorId(@PathVariable Long id){
+        return ResponseEntity.ok(modelMapperService.toObject(AtletaListarDto.class,atletaService.pegarPorId(id)));
+    }
 }

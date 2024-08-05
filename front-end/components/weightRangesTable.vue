@@ -33,11 +33,13 @@ const items = (row: any) => [
 </script>
 
 <template>
-  <UTable  :rows="people" :columns="columns">
-    <template #actions-data="{ row }">
-      <UDropdown :items="items(row)">
-        <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
-      </UDropdown>
-    </template>
-  </UTable>
+  <UCard>
+    <UTable  :rows="people" :columns="columns">
+      <template #actions-data="{ row }">
+        <UDropdown :items="items(row)">
+          <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+        </UDropdown>
+      </template>
+    </UTable>
+  </UCard>
 </template>

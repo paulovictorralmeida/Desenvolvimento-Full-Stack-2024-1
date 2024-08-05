@@ -1,5 +1,17 @@
-<script setup lang="ts">
-const columns = [{
+<script>
+export default {
+  name: "weightRangesTable",
+  data() {
+    return {
+      columns: [],
+      atletas: [],
+      items: [],
+    };
+  },
+  created() {
+    this.getData();
+    
+    this.columns = [{
   key: 'nome',
   label: 'Nome'
 }, {
@@ -17,47 +29,50 @@ const columns = [{
   label: 'Cidade'
 }, {
   key: 'actions'
-}]
-
-const people = [{
-  id: 1,
-  nome: 'Lindsay Walton',
-  idade: 'Front-end Developer',
-  cpf: 'lindsay.walton@example.com',
-  rg: 'Member',
-  cidade: 'ppppppp'
-}, {
-  id: 2,
-  nome: 'Courtney Henry',
-  idade: 'Designer',
-  cpf: 'courtney.henry@example.com',
-  rg: 'Admin',
-  cidade: 'ppppppp'
-}, {
-  id: 3,
-  nome: 'Tom Cook',
-  idade: 'Director of Product',
-  cpf: 'tom.cook@example.com',
-  rg: 'Member',
-  cidade: 'ppppppp'
-}]
-
-const items = (row: any) => [
-  [{
-    label: 'Editar',
-    icon: 'i-heroicons-pencil-square-20-solid',
-    click: () => console.log('Edit', row.id)
-  }, {
-    label: 'Deletar',
-    icon: 'i-heroicons-trash-20-solid',
-    click: () => console.log('Delete', row.id)
-  }]
-]
+}];
+    
+    this.items = (row) => [
+      [
+        {
+          label: "Editar",
+          icon: "i-heroicons-pencil-square-20-solid",
+          click: () => this.handleEditClick(row.id),
+        },
+        {
+          label: "Deletar",
+          icon: "i-heroicons-trash-20-solid",
+          click: () => this.deleteAtleta(row.id),
+        },
+      ],
+    ];
+  },
+  methods: {
+    async getData() {
+      const data = await $fetch(`http://localhost:8081/ufc-back/atletas`, {
+        method: "GET",
+      });
+      this.atletas = data.result;
+    },
+    async deleteAtleta(id) {
+      try {
+        const data = await $fetch(`http://localhost:8081/ufc-back/atletas/${id}`, {
+          method: "DELETE",
+        });
+        this.atletas = this.atletas.filter(atleta => atleta.id !== id);
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    handleEditClick(id) {
+      this.$router.push({ path: '/atletas/edit/', query: { id: id } })
+    }
+  },
+};
 </script>
 
 <template>
   <UCard>    
-    <UTable  :rows="people" :columns="columns">
+    <UTable  :rows="atletas" :columns="columns">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />

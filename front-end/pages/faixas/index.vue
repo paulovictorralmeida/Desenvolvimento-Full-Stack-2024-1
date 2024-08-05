@@ -12,7 +12,7 @@ export default {
   name: "CadastroFaixas",
   methods: {
     handleClick() {
-      this.$router.push('/faixas/edit/')
+      this.$router.push({ path: '/faixas/edit/', query: { id: '0' } })
     }
   },
 };

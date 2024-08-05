@@ -4,6 +4,7 @@
       <NavBar />
       <NuxtPage />
     </div>
+    <UNotifications />
   </div>
 </template>
 

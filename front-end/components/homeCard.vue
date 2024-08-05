@@ -21,12 +21,12 @@ export default {
   },
   methods: {
     async getData() {
-      const data = await $fetch('http://localhost:8081/ufc-back/juizes', {
+      const data = await $fetch(`http://localhost:8081/ufc-back/${this.type}`, {
         method: "GET",
       });
-      this.number = data.data.totalResults;
+      this.number = data.totalResults;
     },
-  },
+  }, 
 };
 </script>
 

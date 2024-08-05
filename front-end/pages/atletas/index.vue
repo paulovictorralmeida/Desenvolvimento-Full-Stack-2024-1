@@ -12,7 +12,7 @@ export default {
   name: "CadastroAtletas",
   methods: {
     handleClick() {
-      this.$router.push('/atletas/edit/')
+      this.$router.push({ path: '/atletas/edit/', query: { id: '0' } })
     }
   },
 };
